@@ -1,0 +1,9 @@
+{
+  "name": "Pokedex",
+  "version": "1.0.0",
+  "description": "My homemade Pokedex",
+  "main": "index.js",
+  "author": "Tommy Nguyen",
+  "license": "MIT",
+  "private": false
+}
