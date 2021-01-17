@@ -1,92 +1,136 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import styled from 'styled-components';
-
-const mockData = [
-    {
-      "name": "bulbasaur",
-      "url": "https://pokeapi.co/api/v2/pokemon/1/"
-    },
-    {
-      "name": "ivysaur",
-      "url": "https://pokeapi.co/api/v2/pokemon/2/"
-    },
-    {
-      "name": "venusaur",
-      "url": "https://pokeapi.co/api/v2/pokemon/3/"
-    },
-    {
-      "name": "charmander",
-      "url": "https://pokeapi.co/api/v2/pokemon/4/"
-    },
-    {
-      "name": "charmeleon",
-      "url": "https://pokeapi.co/api/v2/pokemon/5/"
-    },
-    {
-      "name": "charizard",
-      "url": "https://pokeapi.co/api/v2/pokemon/6/"
-    },
-    {
-      "name": "squirtle",
-      "url": "https://pokeapi.co/api/v2/pokemon/7/"
-    },
-    {
-      "name": "wartortle",
-      "url": "https://pokeapi.co/api/v2/pokemon/8/"
-    },
-    {
-      "name": "blastoise",
-      "url": "https://pokeapi.co/api/v2/pokemon/9/"
-    },
-    {
-      "name": "caterpie",
-      "url": "https://pokeapi.co/api/v2/pokemon/10/"
-    }
-]
+import styled, { keyframes } from "styled-components";
+import Button from "../components/Button";
+import { COLORS } from "../utils/theme";
+import { POKEMON_API_URL, GEN_5_LIMIT } from "../utils/constants";
 
 const PokeList = () => {
+  const [value, setValue] = useState("");
+  const [pokemonList, setPokemonList] = useState([]);
+
+  useEffect(() => {
+    fetch(`${POKEMON_API_URL}/pokemon?limit=${GEN_5_LIMIT}`)
+      .then((data) => data.json())
+      .then((data) => setPokemonList(data.results))
+      .then(() => console.log("Fetching..."));
+  }, [value]); // Runs only once first render
+
+  const handleOnChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const matchedSuggestions = pokemonList.filter((pokemon) => {
+    return pokemon.name.toLowerCase().includes(value.toLowerCase());
+  });
+
+  // console.log(pokemonList);
 
   return (
     <Wrapper>
-
-    {mockData.map( (data) => {
-
-      return ( 
-        <PokeLink to={`pokemon/${data.name}`}>
-          <PokemonName>{data.name}</PokemonName>
-        </PokeLink>
+      <SearchContainer>
+        <Input type="text" value={value} onChange={handleOnChange}></Input>
+        <ClearButton onClick={() => setValue("")}>Clear</ClearButton>
+      </SearchContainer>
+      {pokemonList.map((pokeObject, index) => {
+        return (
+          <PokeLink to={`pokemon/${pokeObject.name}`}>
+            <PokeContainer>
+              <PokemonName key={pokeObject.name}>{pokeObject.name}</PokemonName>
+              <PokemonNationalNum>
+                #{("000" + (index + 1)).slice(-3)}
+              </PokemonNationalNum>
+            </PokeContainer>
+          </PokeLink>
         );
-    })}
-
+      })}
     </Wrapper>
-  )
-
-}
+  );
+};
 
 export default PokeList;
 
 const Wrapper = styled.main`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center; */
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3vw;
+  width: 800px;
+  margin: auto;
+`;
+
+const shake = keyframes`
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  
+  30%, 50%, 70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(2px, 0, 0);
+}
+`;
+
+const SearchContainer = styled.div`
+  grid-column: 1/4;
+  display: flex;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  /* width: 150px; */
+  height: 40px;
+  padding: 20px 60px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px;
+`;
+
+const ClearButton = styled(Button)`
+  margin-left: 1vw;
+`;
+
+const PokeContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-`
+  padding: 20px;
+  border: 1px solid ${COLORS.primary};
+  border-radius: 10px;
+  box-shadow: 5px 10px 18px #888888;
+
+  &:hover {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 50px #9ecaed;
+    animation: ${shake} 0.5s;
+  }
+`;
 
 const PokemonName = styled.div`
   font-size: 25px;
+  color: ${COLORS.primary};
   text-transform: capitalize;
-  padding: 20px;
-  margin: 10px;
-  border: 1px solid darkgray;
-  border-radius: 10px;
-  box-shadow: 5px 10px 18px #888888;
-  min-width: 35vw;
-  cursor: pointer;
-`
+
+  &:hover {
+    color: ${COLORS.secondary};
+  }
+`;
+
+const PokemonNationalNum = styled.span`
+  color: ${COLORS.statName};
+`;
 
 const PokeLink = styled(Link)`
   text-decoration: none;
   color: black;
-`
+`;
