@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
 import { COLORS } from "../utils/theme";
-import Button from "./Button";
 
 const Header = () => {
   return (
@@ -32,12 +31,12 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled.header`
-  /* background-color: plum; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 30px;
   padding-bottom: 30px;
+  margin-bottom: 5vh;
 `;
 
 const Title = styled.h1`
@@ -48,12 +47,6 @@ const NavigationList = styled.ul`
   list-style-type: none;
   display: flex;
 `;
-
-// const NavItem = styled.div`
-//   color: #fff;
-//   font-size: 30px;
-//   margin: 20px;
-// `;
 
 const NavigationLink = styled(NavLink)`
   position: relative;
@@ -68,8 +61,6 @@ const NavigationLink = styled(NavLink)`
   }
 `;
 
-// const SearchContainer = styled.div``;
-
 const SearchBar = styled.input`
   width: 150px;
   height: 40px;
@@ -78,7 +69,3 @@ const SearchBar = styled.input`
   border-radius: 4px;
   font-size: 18px;
 `;
-
-// const ClearButton = styled(Button)`
-//   margin-left: 1vw;
-// `;

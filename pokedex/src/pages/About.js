@@ -3,6 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import tommy from "../images/tommy.png";
 import { COLORS } from "../utils/theme";
+import {
+  AiOutlineGithub,
+  AiOutlineTwitter,
+  AiFillLinkedin,
+} from "react-icons/ai";
 
 const About = () => {
   return (
@@ -39,8 +44,12 @@ const About = () => {
           <Skill>Neo4j</Skill>
         </SkillsContainer>
       </IntroContainer>
-
       <TommyPhoto src={tommy} alt="Tommy" />
+      <SocialMediaContainer>
+        <GithubIcon></GithubIcon>
+        <TwitterIcon></TwitterIcon>
+        <LinkedinIcon></LinkedinIcon>
+      </SocialMediaContainer>
     </Wrapper>
   );
 };
@@ -92,4 +101,44 @@ const Greeting = styled.header`
 const TommyPhoto = styled.img`
   width: 25vw;
   border-radius: 10px;
+`;
+
+const SocialMediaContainer = styled.div`
+  /* grid-column: 1/3; */
+  display: flex;
+  /* position: absolute; */
+  /* bottom: 0px; */
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  right: 20vw;
+  bottom: 1vw;
+`;
+
+const GithubIcon = styled(AiOutlineGithub)`
+  width: 3vw;
+  height: auto;
+
+  &:hover {
+    color: mediumorchid;
+  }
+`;
+
+const TwitterIcon = styled(AiOutlineTwitter)`
+  width: 3vw;
+  height: auto;
+  margin: 20px;
+
+  &:hover {
+    color: #00acee;
+  }
+`;
+
+const LinkedinIcon = styled(AiFillLinkedin)`
+  width: 3vw;
+  height: auto;
+
+  &:hover {
+    color: #0e76a8;
+  }
 `;

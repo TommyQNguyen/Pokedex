@@ -43,8 +43,8 @@ const PokeList = () => {
               <PokeContainer>
                 <PokemonName>{pokeObject.name}</PokemonName>
                 {/* <PokemonNationalNum>
-                #{("000" + (index + 1)).slice(-3)}
-              </PokemonNationalNum> */}
+                  #{("000" + (index + 1)).slice(-3)}
+                </PokemonNationalNum> */}
               </PokeContainer>
             </PokeLink>
           );
@@ -56,11 +56,6 @@ const PokeList = () => {
 export default PokeList;
 
 const Wrapper = styled.main`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 3vw;
@@ -88,15 +83,16 @@ const SearchContainer = styled.div`
   grid-column: 1/4;
   display: flex;
   justify-content: center;
+  margin-bottom: 5vh;
 `;
 
 const Input = styled.input`
   /* width: 150px; */
   height: 40px;
-  padding: 20px 60px;
+  padding: 20px 100px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 18px;
+  font-size: 20px;
 `;
 
 const ClearButton = styled(Button)`
