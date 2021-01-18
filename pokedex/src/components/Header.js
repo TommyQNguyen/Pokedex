@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import styled from "styled-components";
 import { COLORS } from "../utils/theme";
@@ -25,11 +25,6 @@ const Header = () => {
           </li>
         </NavigationList>
       </nav>
-
-      {/* <SearchContainer>
-        <SearchBar></SearchBar>
-        <ClearButton>Clear</ClearButton>
-      </SearchContainer> */}
     </Wrapper>
   );
 };
@@ -54,11 +49,11 @@ const NavigationList = styled.ul`
   display: flex;
 `;
 
-const NavItem = styled.div`
-  color: #fff;
-  font-size: 30px;
-  margin: 20px;
-`;
+// const NavItem = styled.div`
+//   color: #fff;
+//   font-size: 30px;
+//   margin: 20px;
+// `;
 
 const NavigationLink = styled(NavLink)`
   position: relative;
@@ -73,7 +68,7 @@ const NavigationLink = styled(NavLink)`
   }
 `;
 
-const SearchContainer = styled.div``;
+// const SearchContainer = styled.div``;
 
 const SearchBar = styled.input`
   width: 150px;
@@ -84,6 +79,6 @@ const SearchBar = styled.input`
   font-size: 18px;
 `;
 
-const ClearButton = styled(Button)`
-  margin-left: 1vw;
-`;
+// const ClearButton = styled(Button)`
+//   margin-left: 1vw;
+// `;

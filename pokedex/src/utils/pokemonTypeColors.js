@@ -16,5 +16,5 @@ export default {
   dark: { color: "#705848", border: "1px solid #49392F" },
   steel: { color: "#B8B8D0", border: "1px solid #787887" },
   dragon: { color: "#7038F8", border: "1px solid #4924A1" },
-  fairy: { color: "plum", border: "1px solid #pink" },
+  fairy: { color: "plum", border: "1px solid #A13959" },
 };

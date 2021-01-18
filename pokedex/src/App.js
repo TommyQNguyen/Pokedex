@@ -1,11 +1,12 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import PokeListing from "./pages/PokeListing";
-import Header from "./components/Header";
 import styled from "styled-components";
 import GlobalStyles from "../src/components/GlobalStyles";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import PokeListing from "./pages/PokeListing";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
             </Route>
 
             <Route exact path="/about">
-              About
+              <About />
             </Route>
 
             <Route path="/pokemon/:pokemon">

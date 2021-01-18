@@ -14,8 +14,8 @@ const PokeList = () => {
     fetch(`${POKEMON_API_URL}/pokemon?limit=${GEN_5_LIMIT}`)
       .then((data) => data.json())
       .then((data) => setPokemonList(data.results))
-      .then(() => console.log("Fetching..."));
-  }, [value]); // Runs only once first render
+      .then(() => console.log("done Fetching..."));
+  }, []); // Runs only once first render
 
   const handleOnChange = (event) => {
     setValue(event.target.value);
@@ -27,24 +27,28 @@ const PokeList = () => {
 
   // console.log(pokemonList);
 
+  console.log("render");
+
   return (
     <Wrapper>
       <SearchContainer>
         <Input type="text" value={value} onChange={handleOnChange}></Input>
         <ClearButton onClick={() => setValue("")}>Clear</ClearButton>
       </SearchContainer>
-      {pokemonList.map((pokeObject, index) => {
-        return (
-          <PokeLink to={`pokemon/${pokeObject.name}`}>
-            <PokeContainer>
-              <PokemonName key={pokeObject.name}>{pokeObject.name}</PokemonName>
-              <PokemonNationalNum>
+      {pokemonList
+        .filter((pokeObject) => pokeObject.name.toLowerCase().includes(value))
+        .map((pokeObject) => {
+          return (
+            <PokeLink key={pokeObject.name} to={`pokemon/${pokeObject.name}`}>
+              <PokeContainer>
+                <PokemonName>{pokeObject.name}</PokemonName>
+                {/* <PokemonNationalNum>
                 #{("000" + (index + 1)).slice(-3)}
-              </PokemonNationalNum>
-            </PokeContainer>
-          </PokeLink>
-        );
-      })}
+              </PokemonNationalNum> */}
+              </PokeContainer>
+            </PokeLink>
+          );
+        })}
     </Wrapper>
   );
 };
