@@ -107,21 +107,23 @@ const PokeList = () => {
           const isSelected = selectedSuggestionIndex === index;
           return containsNoProvidedSuggestions ? (
             <PokeLink key={pokeObject.name} to={`pokemon/${pokeObject.name}`}>
-              <PokeContainer
-                // onClick={() => handleSelect(pokeObject.name)}
-                onMouseEnter={() => setSelectionSuggestionIndex(index)}
-                style={{
-                  boxShadow: isSelected ? "0 0 50px #9ecaed" : "",
-                }}
-              >
-                <PokemonName>{pokeObject.name}</PokemonName>
-                {/* <PokemonNationalNum>
+              <div tabIndex={index + 1}>
+                <PokeContainer
+                  // onClick={() => handleSelect(pokeObject.name)}
+                  onMouseEnter={() => setSelectionSuggestionIndex(index)}
+                  style={{
+                    boxShadow: isSelected ? '0 0 50px #9ecaed' : '',
+                  }}
+                >
+                  <PokemonName>{pokeObject.name}</PokemonName>
+                  {/* <PokemonNationalNum>
                   #{("000" + (index + 1)).slice(-3)}
                 </PokemonNationalNum> */}
-              </PokeContainer>
+                </PokeContainer>
+              </div>
             </PokeLink>
           ) : (
-            ""
+            ''
           );
         })}
       </Wrapper>
