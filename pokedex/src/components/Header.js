@@ -1,13 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import styled from "styled-components";
 import { COLORS } from "../utils/theme";
+import { SiPokemon } from "react-icons/si";
 
 const Header = () => {
   return (
     <Wrapper>
-      <Title>Pokedex</Title>
+      <Link to="/">
+        <Title></Title>
+      </Link>
 
       <nav>
         <NavigationList>
@@ -34,13 +37,19 @@ const Wrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  margin-bottom: 5vh;
+  /* padding-top: 0px; */
+  /* padding-bottom: 30px; */
+  /* margin-bottom: 5vh; */
 `;
 
-const Title = styled.h1`
+const Title = styled(SiPokemon)`
   /* color: yellow; */
+  font-size: 20vw;
+  height: 10vw;
+
+  &:hover {
+    color: #ffcb05;
+  }
 `;
 
 const NavigationList = styled.ul`

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import styled, { keyframes } from "styled-components";
 import Button from "../components/Button";
+import { Splash } from "../components/Splash";
 import { COLORS } from "../utils/theme";
 import { POKEMON_API_URL, GEN_5_LIMIT } from "../utils/constants";
 
 const PokeList = () => {
   const [value, setValue] = useState("");
   const [pokemonList, setPokemonList] = useState([]);
+  const [selectedSuggestionIndex, setSelectionSuggestionIndex] = useState(0);
+  const history = useHistory();
 
   useEffect(() => {
     fetch(`${POKEMON_API_URL}/pokemon?limit=${GEN_5_LIMIT}`)
@@ -17,39 +20,112 @@ const PokeList = () => {
       .then(() => console.log("done Fetching..."));
   }, []); // Runs only once first render
 
+  const handleSelect = (name) => {
+    // window.alert(name);
+    history.push(`pokemon/${name}`);
+  };
+
   const handleOnChange = (event) => {
     setValue(event.target.value);
   };
 
-  const matchedSuggestions = pokemonList.filter((pokemon) => {
-    return pokemon.name.toLowerCase().includes(value.toLowerCase());
-  });
+  // const matchedSuggestions = pokemonList.filter((pokemon) => {
+  //   return pokemon.name.toLowerCase().includes(value.toLowerCase());
+  // });
+  const matchedSuggestions = pokemonList.filter((pokeObject) =>
+    pokeObject.name.toLowerCase().includes(value)
+  );
+
+  // No provided suggestions - either because the user hasn't typed anything yet,
+  // or they've typed a string that doesn't match any strings
+  const containsNoProvidedSuggestions =
+    matchedSuggestions.length > 0 && value.length > 0;
 
   // console.log(pokemonList);
 
   console.log("render");
 
   return (
-    <Wrapper>
-      <SearchContainer>
-        <Input type="text" value={value} onChange={handleOnChange}></Input>
-        <ClearButton onClick={() => setValue("")}>Clear</ClearButton>
-      </SearchContainer>
-      {pokemonList
-        .filter((pokeObject) => pokeObject.name.toLowerCase().includes(value))
-        .map((pokeObject) => {
-          return (
+    <>
+      <Splash />
+      <Wrapper>
+        <SearchContainer>
+          <Input
+            type="text"
+            value={value}
+            onChange={handleOnChange}
+            onKeyDown={(event) => {
+              switch (event.key) {
+                case "Escape":
+                  // Closes the Typeahead dropdown
+                  setValue("");
+                  setSelectionSuggestionIndex(0);
+                  break;
+                case "Enter":
+                  if (selectedSuggestionIndex > -1)
+                    handleSelect(
+                      matchedSuggestions[selectedSuggestionIndex].name
+                    );
+                  break;
+                case "ArrowUp":
+                  if (
+                    selectedSuggestionIndex > -1 &&
+                    containsNoProvidedSuggestions
+                  )
+                    setSelectionSuggestionIndex(selectedSuggestionIndex - 3);
+                  break;
+                case "ArrowDown":
+                  if (
+                    selectedSuggestionIndex < matchedSuggestions.length - 1 &&
+                    containsNoProvidedSuggestions
+                  )
+                    setSelectionSuggestionIndex(selectedSuggestionIndex + 3);
+                  break;
+                case "ArrowLeft":
+                  if (
+                    selectedSuggestionIndex < matchedSuggestions.length - 1 &&
+                    containsNoProvidedSuggestions
+                  )
+                    setSelectionSuggestionIndex(selectedSuggestionIndex - 1);
+                  break;
+                case "ArrowRight":
+                  if (
+                    selectedSuggestionIndex < matchedSuggestions.length - 1 &&
+                    containsNoProvidedSuggestions
+                  )
+                    setSelectionSuggestionIndex(selectedSuggestionIndex + 1);
+                  break;
+                default:
+                  break;
+              }
+              // console.log(selectedSuggestionIndex);
+            }}
+          ></Input>
+          <ClearButton onClick={() => setValue("")}>Clear</ClearButton>
+        </SearchContainer>
+        {matchedSuggestions.map((pokeObject, index) => {
+          const isSelected = selectedSuggestionIndex === index;
+          return containsNoProvidedSuggestions ? (
             <PokeLink key={pokeObject.name} to={`pokemon/${pokeObject.name}`}>
-              <PokeContainer>
+              <PokeContainer
+                // onClick={() => handleSelect(pokeObject.name)}
+                onMouseEnter={() => setSelectionSuggestionIndex(index)}
+                style={{
+                  boxShadow: isSelected ? "0 0 50px #9ecaed" : "",
+                }}
+              >
                 <PokemonName>{pokeObject.name}</PokemonName>
                 {/* <PokemonNationalNum>
                   #{("000" + (index + 1)).slice(-3)}
                 </PokemonNationalNum> */}
               </PokeContainer>
             </PokeLink>
+          ) : (
+            ""
           );
         })}
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 };
 
@@ -61,6 +137,12 @@ const Wrapper = styled.main`
   grid-gap: 3vw;
   width: 800px;
   margin: auto;
+`;
+
+const ClipArtBackground = styled.div`
+  height: 100vw;
+  width: 100vw;
+  background-color: red;
 `;
 
 const shake = keyframes`
@@ -110,8 +192,8 @@ const PokeContainer = styled.div`
 
   &:hover {
     outline: none;
-    border-color: #9ecaed;
-    box-shadow: 0 0 50px #9ecaed;
+    border-color: mediumslateblue;
+    box-shadow: 0 0 50px mediumpurple;
     animation: ${shake} 0.5s;
   }
 `;

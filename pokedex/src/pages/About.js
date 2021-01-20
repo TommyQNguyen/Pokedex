@@ -1,6 +1,6 @@
 import React from "react";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import tommy from "../images/tommy.png";
 import { COLORS } from "../utils/theme";
 import {
@@ -8,49 +8,62 @@ import {
   AiOutlineTwitter,
   AiFillLinkedin,
 } from "react-icons/ai";
+import { Splash } from "../components/Splash";
 
 const About = () => {
   return (
-    <Wrapper>
-      <IntroContainer>
-        <Introduction>
-          Hi there! I'm Tommy, a student, and a Front End Developer based in
-          Montreal, QC.
-        </Introduction>
+    <>
+      <Splash />
+      <Wrapper>
+        <IntroContainer>
+          <Introduction>
+            Hi there! I'm Tommy, a student, and a Front End Developer based in
+            Montreal, QC.
+          </Introduction>
 
-        <Introduction>
-          I have fun creating components that roams on the internet, whether
-          that be websites, applications, or anything in between! My purpose is
-          to create projects that provide performant, and visually appealing
-          experiences.
-        </Introduction>
+          <Introduction>
+            I have fun creating components that roams on the internet, whether
+            that be websites, applications, or anything in between! My purpose
+            is to create projects that provide performant, and visually
+            appealing experiences.
+          </Introduction>
 
-        <Introduction>
-          Not long after graduating from college, I aspire to join a team where
-          I can contribute on a huge variety of colourful and meaningful
-          projects every day!
-        </Introduction>
+          <Introduction>
+            Not long after graduating from college, I aspire to join a team
+            where I can contribute on a huge variety of colourful and meaningful
+            projects every day!
+          </Introduction>
 
-        <Introduction>
-          Here are a few technologies I've been playing with recently:
-        </Introduction>
+          <Introduction>
+            Here are a few technologies I've been playing with recently:
+          </Introduction>
 
-        <SkillsContainer>
-          <Skill>JavaScript ES6</Skill>
-          <Skill>React</Skill>
-          <Skill>Git</Skill>
-          <Skill>HTML & CSS</Skill>
-          <Skill>Styled-Components</Skill>
-          <Skill>Neo4j</Skill>
-        </SkillsContainer>
-      </IntroContainer>
-      <TommyPhoto src={tommy} alt="Tommy" />
-      <SocialMediaContainer>
-        <GithubIcon></GithubIcon>
-        <TwitterIcon></TwitterIcon>
-        <LinkedinIcon></LinkedinIcon>
-      </SocialMediaContainer>
-    </Wrapper>
+          <SkillsContainer>
+            <Skill>JavaScript ES6</Skill>
+            <Skill>React</Skill>
+            <Skill>Git</Skill>
+            <Skill>HTML & CSS</Skill>
+            <Skill>Styled-Components</Skill>
+            <Skill>Neo4j</Skill>
+          </SkillsContainer>
+        </IntroContainer>
+        <PhotoContainer>
+          <TommyPhoto src={tommy} alt="Tommy" />
+          <Overlay>
+            <OverlayText>Hello Me</OverlayText>
+          </Overlay>
+        </PhotoContainer>
+        <SocialMediaContainer>
+          <a href="https://github.com/qtommyn" target="_blank">
+            <GithubIcon></GithubIcon>
+          </a>
+          <TwitterIcon></TwitterIcon>
+          <a href="https://www.linkedin.com/in/nguyenqtommy/" target="_blank">
+            <LinkedinIcon></LinkedinIcon>
+          </a>
+        </SocialMediaContainer>
+      </Wrapper>
+    </>
   );
 };
 
@@ -98,9 +111,46 @@ const Greeting = styled.header`
   color: ${COLORS.primary};
 `;
 
-const TommyPhoto = styled.img`
+const PhotoContainer = styled.div`
+  position: relative;
   width: 25vw;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const TommyPhoto = styled.img`
+  width: 100%;
   border-radius: 10px;
+`;
+
+const OverlayText = styled.div`
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  /* bottom: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  border-radius: 10px;
+  transition: 1s ease;
+  background-color: rgba(50, 50, 50, 0.5);
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const SocialMediaContainer = styled.div`
@@ -120,6 +170,8 @@ const GithubIcon = styled(AiOutlineGithub)`
   height: auto;
 
   &:hover {
+    position: relative;
+    top: -1vh;
     color: mediumorchid;
   }
 `;
@@ -130,6 +182,8 @@ const TwitterIcon = styled(AiOutlineTwitter)`
   margin: 20px;
 
   &:hover {
+    position: relative;
+    top: -1vh;
     color: #00acee;
   }
 `;
@@ -139,6 +193,8 @@ const LinkedinIcon = styled(AiFillLinkedin)`
   height: auto;
 
   &:hover {
+    position: relative;
+    top: -1vh;
     color: #0e76a8;
   }
 `;

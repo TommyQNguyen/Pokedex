@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import pokemonTypeColors from "../utils/pokemonTypeColors";
 import { COLORS } from "../utils/theme";
+import { CgPokemon } from "react-icons/cg";
 
 const PokeListing = () => {
   const { pokemon } = useParams();
@@ -22,6 +23,7 @@ const PokeListing = () => {
         <div>Loading</div>
       ) : (
         <Wrapper>
+          <BackgroundLogo></BackgroundLogo>
           <PokeName>{pokemonObject.name}</PokeName>
 
           <ImageInfoContainer>
@@ -102,10 +104,33 @@ const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
   text-align: center;
+  position: relative;
   height: 100%;
   padding: 0 5vw;
   width: 800px;
   margin: auto;
+  /* background-color: plum; */
+`;
+
+const rotate = keyframes`
+from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+  `;
+
+const BackgroundLogo = styled(CgPokemon)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  color: whitesmoke;
+  z-index: -9;
+  animation: ${rotate} 10s linear infinite;
 `;
 
 const PokeName = styled.h1`
