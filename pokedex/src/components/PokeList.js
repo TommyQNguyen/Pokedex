@@ -181,11 +181,13 @@ const ClearButton = styled(Button)`
   margin-left: 1vw;
 `;
 
-const PokeContainer = styled.div`
+const PokeContainer = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  min-width: 15vw;
+  background-color: white;
   border: 1px solid ${COLORS.primary};
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
