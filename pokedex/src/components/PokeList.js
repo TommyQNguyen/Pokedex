@@ -29,9 +29,6 @@ const PokeList = () => {
     setValue(event.target.value);
   };
 
-  // const matchedSuggestions = pokemonList.filter((pokemon) => {
-  //   return pokemon.name.toLowerCase().includes(value.toLowerCase());
-  // });
   const matchedSuggestions = pokemonList.filter((pokeObject) =>
     pokeObject.name.toLowerCase().includes(value)
   );
@@ -57,7 +54,6 @@ const PokeList = () => {
             onKeyDown={(event) => {
               switch (event.key) {
                 case "Escape":
-                  // Closes the Typeahead dropdown
                   setValue("");
                   setSelectionSuggestionIndex(0);
                   break;
@@ -107,18 +103,19 @@ const PokeList = () => {
           const isSelected = selectedSuggestionIndex === index;
           return containsNoProvidedSuggestions ? (
             <PokeLink key={pokeObject.name} to={`pokemon/${pokeObject.name}`}>
-              <PokeContainer
-                // onClick={() => handleSelect(pokeObject.name)}
-                onMouseEnter={() => setSelectionSuggestionIndex(index)}
-                style={{
-                  boxShadow: isSelected ? "0 0 50px #9ecaed" : "",
-                }}
-              >
-                <PokemonName>{pokeObject.name}</PokemonName>
-                {/* <PokemonNationalNum>
+              <div tabIndex={index + 1}>
+                <PokeContainer
+                  onMouseEnter={() => setSelectionSuggestionIndex(index)}
+                  style={{
+                    boxShadow: isSelected ? "0 0 50px #9ecaed" : "",
+                  }}
+                >
+                  <PokemonName>{pokeObject.name}</PokemonName>
+                  {/* <PokemonNationalNum>
                   #{("000" + (index + 1)).slice(-3)}
                 </PokemonNationalNum> */}
-              </PokeContainer>
+                </PokeContainer>
+              </div>
             </PokeLink>
           ) : (
             ""
@@ -137,12 +134,6 @@ const Wrapper = styled.main`
   grid-gap: 3vw;
   width: 800px;
   margin: auto;
-`;
-
-const ClipArtBackground = styled.div`
-  height: 100vw;
-  width: 100vw;
-  background-color: red;
 `;
 
 const shake = keyframes`
@@ -191,6 +182,7 @@ const PokeContainer = styled.button`
   border: 1px solid ${COLORS.primary};
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
+  cursor: pointer;
 
   &:hover {
     outline: none;
