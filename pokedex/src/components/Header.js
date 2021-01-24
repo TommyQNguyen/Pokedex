@@ -63,18 +63,7 @@ const NavigationLink = styled(NavLink)`
   padding: 0 16px;
 
   &.active {
-    /* border-bottom: 3px solid ${COLORS.secondary};
-     */
     color: ${COLORS.secondary};
     font-weight: 700;
   }
-`;
-
-const SearchBar = styled.input`
-  width: 150px;
-  height: 40px;
-  padding: 0 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 18px;
 `;

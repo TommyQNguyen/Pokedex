@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import PokeListing from "./pages/PokeListing";
 import About from "./pages/About";
+import FourOhFour from "./pages/FourOhFour";
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
               <PokeListing />
             </Route>
 
-            <Route>Page does not exist.</Route>
+            <Route>
+              <FourOhFour />
+            </Route>
           </Switch>
         </Wrapper>
 
@@ -41,7 +44,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
-  max-width: 900px;
+  max-width: 90vw;
   margin: auto;
 `;
 

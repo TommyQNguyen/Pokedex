@@ -21,7 +21,6 @@ const PokeList = () => {
   }, []); // Runs only once first render
 
   const handleSelect = (name) => {
-    // window.alert(name);
     history.push(`pokemon/${name}`);
   };
 
@@ -37,10 +36,6 @@ const PokeList = () => {
   // or they've typed a string that doesn't match any strings
   const containsNoProvidedSuggestions =
     matchedSuggestions.length > 0 && value.length > 0;
-
-  // console.log(pokemonList);
-
-  console.log("render");
 
   return (
     <>
@@ -94,7 +89,6 @@ const PokeList = () => {
                 default:
                   break;
               }
-              // console.log(selectedSuggestionIndex);
             }}
           ></Input>
           <ClearButton onClick={() => setValue("")}>Clear</ClearButton>
@@ -102,20 +96,19 @@ const PokeList = () => {
         {matchedSuggestions.map((pokeObject, index) => {
           const isSelected = selectedSuggestionIndex === index;
           return containsNoProvidedSuggestions ? (
-            <PokeLink key={pokeObject.name} to={`pokemon/${pokeObject.name}`}>
-              <div tabIndex={index + 1}>
-                <PokeContainer
-                  onMouseEnter={() => setSelectionSuggestionIndex(index)}
-                  style={{
-                    boxShadow: isSelected ? "0 0 50px #9ecaed" : "",
-                  }}
-                >
-                  <PokemonName>{pokeObject.name}</PokemonName>
-                  {/* <PokemonNationalNum>
-                  #{("000" + (index + 1)).slice(-3)}
-                </PokemonNationalNum> */}
-                </PokeContainer>
-              </div>
+            <PokeLink
+              key={pokeObject.name}
+              to={`pokemon/${pokeObject.name}`}
+              tabIndex={index + 1}
+            >
+              <PokeContainer
+                onMouseEnter={() => setSelectionSuggestionIndex(index)}
+                style={{
+                  boxShadow: isSelected ? "0 0 50px #9ecaed" : "",
+                }}
+              >
+                <PokemonName>{pokeObject.name}</PokemonName>
+              </PokeContainer>
             </PokeLink>
           ) : (
             ""
@@ -132,8 +125,15 @@ const Wrapper = styled.main`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 3vw;
-  width: 800px;
+  width: 80vw;
   margin: auto;
+  text-align: center;
+
+  @media only screen and (max-width: 768px) {
+    width: 90vw;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1vw;
+  }
 `;
 
 const shake = keyframes`
@@ -157,15 +157,23 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 5vh;
+
+  @media only screen and (max-width: 768px) {
+    grid-column: 1/3;
+    margin-top: 3vh;
+  }
 `;
 
 const Input = styled.input`
-  /* width: 150px; */
   height: 40px;
   padding: 20px 100px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 20px;
+
+  @media only screen and (max-width: 768px) {
+    padding: 10px 20px;
+  }
 `;
 
 const ClearButton = styled(Button)`
@@ -174,21 +182,28 @@ const ClearButton = styled(Button)`
 
 const PokeContainer = styled.button`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px;
-  min-width: 15vw;
+  width: 20vw;
+
   background-color: white;
   border: 1px solid ${COLORS.primary};
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
   cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &:hover {
     outline: none;
     border-color: mediumslateblue;
     box-shadow: 0 0 50px mediumpurple;
     animation: ${shake} 0.5s;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 40vw;
   }
 `;
 
@@ -202,11 +217,9 @@ const PokemonName = styled.div`
   }
 `;
 
-const PokemonNationalNum = styled.span`
-  color: ${COLORS.statName};
-`;
-
 const PokeLink = styled(Link)`
+  display: flex;
+  justify-content: center;
   text-decoration: none;
   color: black;
 `;

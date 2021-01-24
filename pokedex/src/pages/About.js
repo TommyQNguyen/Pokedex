@@ -1,8 +1,7 @@
 import React from "react";
 
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import tommy from "../images/tommy.png";
-import { COLORS } from "../utils/theme";
 import {
   AiOutlineGithub,
   AiOutlineTwitter,
@@ -50,15 +49,25 @@ const About = () => {
         <PhotoContainer>
           <TommyPhoto src={tommy} alt="Tommy" />
           <Overlay>
-            <OverlayText>Hello Me</OverlayText>
+            <OverlayText>Was stuck on something</OverlayText>
           </Overlay>
         </PhotoContainer>
         <SocialMediaContainer>
-          <a href="https://github.com/qtommyn" target="_blank">
+          <a href="https://github.com/qtommyn" target="_blank" rel="noreferrer">
             <GithubIcon></GithubIcon>
           </a>
-          <TwitterIcon></TwitterIcon>
-          <a href="https://www.linkedin.com/in/nguyenqtommy/" target="_blank">
+          <a
+            href="https://twitter.com/qtommyn"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <TwitterIcon></TwitterIcon>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/nguyenqtommy/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <LinkedinIcon></LinkedinIcon>
           </a>
         </SocialMediaContainer>
@@ -73,11 +82,20 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 2vw;
+
+  @media only screen and (max-width: 400px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const IntroContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 400px) {
+    margin-top: 10vh;
+  }
 `;
 
 const Introduction = styled.main`
@@ -85,6 +103,9 @@ const Introduction = styled.main`
   font-size: 20px;
   text-align: justify;
   color: dimgray;
+  @media only screen and (max-width: 400px) {
+    margin-bottom: 2vh;
+  }
 `;
 
 const SkillsContainer = styled.ul`
@@ -93,6 +114,10 @@ const SkillsContainer = styled.ul`
   grid-template-columns: 1fr 1fr 1fr;
   list-style-type: none;
   grid-gap: 1vw;
+
+  /* @media only screen and (max-width: 400px) {
+    display: flex;
+  } */
 `;
 
 const Skill = styled.li`
@@ -103,12 +128,11 @@ const Skill = styled.li`
     padding-right: 8px;
     /* color: blue; */
   }
-`;
-
-const Greeting = styled.header`
-  padding: 2vw;
-  font-size: 5vw;
-  color: ${COLORS.primary};
+  @media only screen and (max-width: 400px) {
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const PhotoContainer = styled.div`
@@ -117,6 +141,10 @@ const PhotoContainer = styled.div`
 
   &:hover {
     opacity: 1;
+  }
+
+  @media only screen and (max-width: 400px) {
+    display: none;
   }
 `;
 
@@ -163,6 +191,12 @@ const SocialMediaContainer = styled.div`
   position: absolute;
   right: 20vw;
   bottom: 1vw;
+
+  @media only screen and (max-width: 400px) {
+    width: 100vw;
+    right: 0;
+    justify-content: space-around;
+  }
 `;
 
 const GithubIcon = styled(AiOutlineGithub)`
@@ -173,6 +207,10 @@ const GithubIcon = styled(AiOutlineGithub)`
     position: relative;
     top: -1vh;
     color: mediumorchid;
+  }
+
+  @media only screen and (max-width: 400px) {
+    width: 6vw;
   }
 `;
 
@@ -186,6 +224,9 @@ const TwitterIcon = styled(AiOutlineTwitter)`
     top: -1vh;
     color: #00acee;
   }
+  @media only screen and (max-width: 400px) {
+    width: 6vw;
+  }
 `;
 
 const LinkedinIcon = styled(AiFillLinkedin)`
@@ -196,5 +237,8 @@ const LinkedinIcon = styled(AiFillLinkedin)`
     position: relative;
     top: -1vh;
     color: #0e76a8;
+  }
+  @media only screen and (max-width: 400px) {
+    width: 6vw;
   }
 `;

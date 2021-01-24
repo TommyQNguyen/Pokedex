@@ -15,7 +15,7 @@ const PokeListing = () => {
       .then((data) => data.json())
       .then((data) => setPokemonObject(data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [pokemon]); // eslint-disable
 
   return (
     <>
@@ -41,7 +41,6 @@ const PokeListing = () => {
               <GeneralInfoName>Type </GeneralInfoName>
               <TypeContainer>
                 {pokemonObject.types.map((type) => {
-                  // console.log(pokemonTypeColors[type.type.name].color);
                   return (
                     <Type
                       color={pokemonTypeColors[type.type.name].color}
@@ -107,9 +106,13 @@ const Wrapper = styled.main`
   position: relative;
   height: 100%;
   padding: 0 5vw;
-  width: 800px;
+  width: 80vw;
   margin: auto;
   /* background-color: plum; */
+
+  @media only screen and (max-width: 400px) {
+    width: 95vw;
+  }
 `;
 
 const rotate = keyframes`
@@ -147,6 +150,10 @@ const GeneralInfoContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 2vw;
+
+  @media only screen and (max-width: 400px) {
+    grid-row-gap: 1vh;
+  }
 `;
 
 const NationalNumber = styled.div`
@@ -158,12 +165,23 @@ const GeneralInfoName = styled.div`
   display: flex;
   justify-content: flex-end;
   color: ${COLORS.statName};
+
+  @media only screen and (max-width: 400px) {
+    justify-content: center;
+  }
 `;
 
 const TypeContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: 400px) {
+    flex-direction: column;
+    &:first-child {
+      margin-bottom: 20vh;
+    }
+  }
 `;
 
 const Type = styled.div`
@@ -182,6 +200,10 @@ const Type = styled.div`
   color: #fff;
   background-color: ${({ color }) => color};
   border: ${({ border }) => border};
+
+  @media only screen and (max-width: 400px) {
+    max-width: 17vw;
+  }
 `;
 
 const TypeName = styled.span``;
@@ -205,6 +227,7 @@ const SpriteContainer = styled.div`
 `;
 
 const Sprite = styled.img`
+  max-width: 300px;
   /* height: 50%; */
   width: 100%;
 `;
@@ -231,15 +254,25 @@ const StatContainer = styled.div`
 
 const StatName = styled.div`
   text-align: left;
-  min-width: 8vw;
+  min-width: 11vw;
   color: gray;
   text-transform: capitalize;
-  font-size: 1vw;
+  font-size: 1.5vw;
+
+  @media only screen and (max-width: 400px) {
+    min-width: 27vw;
+    font-size: 3.5vw;
+  }
 `;
 
 const StatValue = styled.div`
   min-width: 5vw;
-  font-size: 1vw;
+  font-size: 1.5vw;
+
+  @media only screen and (max-width: 400px) {
+    min-width: 8vw;
+    font-size: 3.5vw;
+  }
 `;
 
 const StatBar = styled.span`
@@ -251,4 +284,8 @@ const StatBar = styled.span`
   border-radius: 10px;
   height: 20px;
   width: ${({ base_stat }) => base_stat * 3}px;
+
+  @media only screen and (max-width: 400px) {
+    width: ${({ base_stat }) => base_stat * 1.2}px;
+  }
 `;

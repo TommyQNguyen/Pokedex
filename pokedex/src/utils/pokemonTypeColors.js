@@ -1,4 +1,4 @@
-export default {
+const pokemonTypeColors = {
   normal: { color: "#A8A878", border: "1px solid #6D6D4E" },
   fire: { color: "#F08030", border: "1px solid #9C531F" },
   water: { color: "#6890F0", border: "1px solid #445E9C" },
@@ -18,3 +18,5 @@ export default {
   dragon: { color: "#7038F8", border: "1px solid #4924A1" },
   fairy: { color: "plum", border: "1px solid #A13959" },
 };
+
+export default pokemonTypeColors;
