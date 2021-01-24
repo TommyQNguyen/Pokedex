@@ -29,7 +29,7 @@ const PokeList = () => {
   };
 
   const matchedSuggestions = pokemonList.filter((pokeObject) =>
-    pokeObject.name.toLowerCase().includes(value)
+    pokeObject.name.toLowerCase().includes(value.toLowerCase())
   );
 
   // No provided suggestions - either because the user hasn't typed anything yet,
